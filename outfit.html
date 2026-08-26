@@ -9,7 +9,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;600;700&family=Noto+Sans+TC:wght@400;500;700&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <style>
-
 :root {
   --paper: #f7f7f7;
   --paper-deep: #ebeced;
@@ -24,7 +23,6 @@
   --line-soft: #ccd2d9;
   --shadow: 0 8px 24px rgba(32, 36, 43, 0.10);
   --shadow-lift: 0 14px 34px rgba(32, 36, 43, 0.16);
-
   --font-display: "Noto Serif TC", serif;
   --font-body: "Open Sans", "Noto Sans TC", sans-serif;
   --font-mono: "Open Sans", "Noto Sans TC", sans-serif;
@@ -47,9 +45,7 @@ html, body {
 button { font-family: inherit; cursor: pointer; }
 input, textarea, select { font-family: inherit; }
 
-/* ============================================================
-   Top bar
-   ============================================================ */
+/* ---------- Top bar ---------- */
 .topbar {
   position: sticky;
   top: 0;
@@ -62,7 +58,6 @@ input, textarea, select { font-family: inherit; }
   backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--line);
 }
-
 .brand {
   display: flex;
   align-items: baseline;
@@ -83,7 +78,6 @@ input, textarea, select { font-family: inherit; }
   color: var(--ink-soft);
   letter-spacing: 0.08em;
 }
-
 .category-tabs {
   display: flex;
   flex-wrap: wrap;
@@ -116,7 +110,6 @@ input, textarea, select { font-family: inherit; }
   border-radius: 2px;
   background: linear-gradient(90deg, var(--chi));
 }
-
 .tab-group { position: relative; }
 .tab-btn.parent { display: inline-flex; align-items: center; gap: 5px; }
 .tab-caret { transition: transform 0.15s; flex-shrink: 0; }
@@ -150,12 +143,9 @@ input, textarea, select { font-family: inherit; }
 }
 .tab-dropdown-item:hover { background: var(--paper-deep); color: var(--ink); }
 .tab-dropdown-item.active { color: var(--indigo-deep); font-weight: 700; }
-
 .topbar-actions { display: flex; align-items: center; gap: 12px; }
 
-/* ============================================================
-   Buttons
-   ============================================================ */
+/* ---------- Buttons ---------- */
 .btn {
   border: none;
   border-radius: 8px;
@@ -170,7 +160,10 @@ input, textarea, select { font-family: inherit; }
   color: #fff;
   box-shadow: var(--shadow);
 }
-.btn-primary:hover { transform: translateY(-1px); box-shadow: var(--shadow-lift); }
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-lift);
+}
 .btn-ghost {
   background: transparent;
   color: var(--indigo-deep);
@@ -184,9 +177,7 @@ input, textarea, select { font-family: inherit; }
 }
 .btn-danger:hover { background: rgba(156, 59, 46, 0.08); }
 
-/* ============================================================
-   Landing
-   ============================================================ */
+/* ---------- Landing ---------- */
 .landing {
   position: relative;
   min-height: 100vh;
@@ -287,6 +278,20 @@ input, textarea, select { font-family: inherit; }
 }
 .welcome-textarea:focus { outline: none; }
 .welcome-textarea.editable:focus { border-color: var(--indigo); }
+
+.welcome-text-view {
+  white-space: normal;
+  overflow-y: auto;
+  line-height: 1.6;
+}
+.welcome-text-view a {
+  color: var(--indigo);
+  text-decoration: underline;
+  cursor: pointer;
+}
+.welcome-text-view a:hover {
+  color: var(--dan)
+}
 
 .schedule-section {
   position: relative;
@@ -581,9 +586,7 @@ input, textarea, select { font-family: inherit; }
 .icon-btn:hover { color: var(--indigo-deep); background: #fff; }
 .icon-btn.del:hover { color: var(--dan); }
 
-/* ============================================================
-   Modals
-   ============================================================ */
+/* ---------- Modals ---------- */
 @keyframes modalBackdropIn {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -778,9 +781,7 @@ textarea { resize: vertical; }
   font-size: 13px;
   color: var(--indigo-deep);}
 
-/* ============================================================
-   Detail modal content
-   ============================================================ */
+/* ---------- Detail modal content ---------- */
 .detail-modal { max-width: 720px; }
 .detail-carousel {
   position: relative;
@@ -836,6 +837,7 @@ textarea { resize: vertical; }
 }
 .announcement-link:hover { background: var(--paper-deep); color: var(--dan); }
 .announcement-link svg { width: 13px; height: 13px; flex-shrink: 0; }
+
 /* 寵物分類專屬 */
 .detail-pets-price { display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; }
 .detail-pets-price .price { color: var(--dan); font-weight: 600; font-size: 15px; display: flex; align-items: baseline; gap: 6px; }
@@ -1129,7 +1131,7 @@ textarea { resize: vertical; }
   <section class="landing-hero">
     <p class="eyebrow">Sword of Justice</p>
     <h1 class="landing-title">外觀整理站</h1>
-    <p class="landing-desc">主自用方便的產物，站內多圖，請耐心等候載入<br>僅擷取重點內容，或有疏漏，建議移步完整公告</p>
+    <p class="landing-desc"> </p>
     <div class="landing-hero-actions">
       <button id="btnEnter" class="btn btn-primary btn-enter">進入瀏覽</button>
       <button id="btnWelcomeInfo" class="btn btn-info btn-enter" type="button">使用說明</button>
@@ -1161,19 +1163,20 @@ textarea { resize: vertical; }
   </div>
 </div>
 
-<!-- ============ 管理員登入 Modal ============ -->
-<!-- ============ 使用說明 Modal（首次造訪自動彈出／可重複開啟） ============ -->
+<!-- ============ 使用說明 Modal ============ -->
 <div id="welcomeModal" class="modal-backdrop hidden">
   <div class="modal">
     <button class="modal-close" data-close>✕</button>
     <h3>使用說明</h3>
-    <textarea id="welcomeText" class="welcome-textarea" readonly></textarea>
+    <textarea id="welcomeText" class="welcome-textarea hidden" readonly></textarea>
+    <div id="welcomeTextView" class="welcome-textarea welcome-text-view"></div>
     <div class="form-actions hidden" id="welcomeSaveWrap">
       <button type="button" id="welcomeSaveBtn" class="btn btn-primary">儲存</button>
     </div>
   </div>
 </div>
 
+<!-- ============ 管理員登入 Modal ============ -->
 <div id="loginModal" class="modal-backdrop hidden">
   <div class="modal login-modal">
     <button class="modal-close" data-close>✕</button>
@@ -3103,17 +3106,41 @@ $("#scheduleForm").addEventListener("submit", async (e) => {
 });
 
 // ============================================================
-// 使用說明（首次造訪彈窗，內容可由管理員直接編輯）
+// 使用說明
 // ============================================================
 const WELCOME_DOC = doc(db, "settings", "welcomeNotice");
 let welcomeText = "";
 
+function linkifyText(text) {
+  const escaped = text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+
+  return escaped
+    .replace(
+      /(https?:\/\/[^\s<]+)/g,
+      '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>'
+    )
+    .replace(/\n/g, "<br>");
+}
 function updateWelcomeEditState() {
   const ta = $("#welcomeText");
+  const view = $("#welcomeTextView");
   const isAdmin = !!currentUser;
   ta.readOnly = !isAdmin;
   ta.classList.toggle("editable", isAdmin);
   $("#welcomeSaveWrap").classList.toggle("hidden", !isAdmin);
+  if (isAdmin) {
+    ta.classList.remove("hidden");
+    view.classList.add("hidden");
+  } else {
+    ta.classList.add("hidden");
+    view.classList.remove("hidden");
+    view.innerHTML = linkifyText(welcomeText);
+  }
 }
 
 function openWelcomeModal() {
@@ -3121,7 +3148,6 @@ function openWelcomeModal() {
   updateWelcomeEditState();
   $("#welcomeModal").classList.remove("hidden");
 }
-
 function maybeShowWelcomeOnFirstVisit() {
   if (localStorage.getItem("hasSeenWelcome")) return;
   localStorage.setItem("hasSeenWelcome", "1");
@@ -3130,12 +3156,21 @@ function maybeShowWelcomeOnFirstVisit() {
 
 function subscribeWelcomeNotice() {
   onSnapshot(WELCOME_DOC, (snap) => {
-    welcomeText = snap.exists() ? (snap.data().text || "") : "";
-    if ($("#welcomeModal").classList.contains("hidden")) {
-      $("#welcomeText").value = welcomeText;
+    welcomeText = snap.exists()
+      ? (snap.data().text || "")
+      : "";
+
+    $("#welcomeText").value = welcomeText;
+
+    if (!$("#welcomeModal").classList.contains("hidden")) {
+      updateWelcomeEditState();
     }
+
     maybeShowWelcomeOnFirstVisit();
-  }, (err) => console.error(err));
+
+  }, (err) => {
+    console.error(err);
+  });
 }
 
 $("#btnWelcomeInfo").addEventListener("click", openWelcomeModal);
