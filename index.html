@@ -45,6 +45,35 @@ html, body {
 button { font-family: inherit; cursor: pointer; }
 input, textarea, select { font-family: inherit; }
 
+  /* ---------- scrollbar ---------- */
+:is(url({)),
+body::-webkit-scrollbar,
+:is(url(})) {
+  width: 0px;
+}
+:is(url({)),
+*::-webkit-scrollbar,
+body:has(#bookmark_holder)::-webkit-scrollbar,
+:is(url(})) {
+  width: 5px;
+}
+:is(url({)),
+*::-webkit-scrollbar-track,
+body:is(url(})) {
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+}
+:is(url({)),
+*::-webkit-scrollbar-thumb,
+body:is(url(})) {
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  background: #1c1c1c;
+}
+._lch_ ~ .pop-window {
+  overflow: hidden;
+}
+
 /* ---------- Top bar ---------- */
 .topbar {
   position: sticky;
@@ -410,9 +439,7 @@ input, textarea, select { font-family: inherit; }
   font-size: 14px;
 }
 
-/* ============================================================
-   Card grid
-   ============================================================ */
+/* ---------- Card grid ---------- */
 .database {
   max-width: 1400px;
   margin: 0 auto;
@@ -442,6 +469,11 @@ input, textarea, select { font-family: inherit; }
   flex-direction: column;
 }
 .item-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lift); }
+
+.item-card.has-special-cursor,
+.item-card.has-special-cursor * { 
+  cursor: url("https://images.plurk.com/2lPygcS0Eft33YEm3d36yB.png") 14 14, auto !important;
+}
 
 .card-carousel {
   position: relative;
@@ -1259,12 +1291,14 @@ const db = getFirestore(app);
 // ============================================================
 const SALE = ["常駐", "限時", "直售", "禮盒", "天賞", "轉盤", "盲盒", "現金", "聯動", "雙色", "變身", "永久下架"];
 const CYTYPE = ["劍", "弓", "雙刀"];
+const LUX = ["時裝", "祥瑞", "莊園組件", "俠棋"];
 const SOURCE = ["副本掉落", "榮譽挑戰", "劇情任務", "簽到活動", "江湖門派", "身分玩法", "俠緣好感", "羈絆風物", "探索季藏", "珍玩收藏", "其他", "聯動"];
 const PRIZE = ["髮型", "環身", "腳印", "武器", "祥瑞", "坐騎", "技能", "靈寵", "站姿"];
-const PETS = ["狗", "貓", "企鵝", "兔子", "鹿", "狐狸", "鳳凰", "鷹", "逆崽", "八爪魚", "異世", "兔型福寶", "貓型福寶", "虎型福寶", "羊型福寶", "萌萌泥", "絨絨", "皮皮鼠", "松鼠"];
+const PETS = ["狗", "貓", "企鵝", "兔子", "鹿", "狐狸", "鳳凰", "鷹", "萌萌泥", "兔型福寶", "貓型福寶", "虎型福寶", "羊型福寶", "皮皮鼠", "絨絨", "異世", "逆崽", "八爪魚", "松鼠"];
 const PETS_GACHA = ["常駐", "限時", "樂樂扭蛋機", "搖搖扭蛋機", "星夢扭蛋機", "盈運扭蛋機"];
+const RARE = ["典藏‧珍", "典藏", "卓越", "高級", "普通"];
 
-// 時裝
+// 時裝：容華閣
 const FASHION_FIELDS = [
   { key: "price", label: "售價", type: "text", scope: "card", suffix: " 紋玉" },
   { key: "cnDate", label: "陸服上線日期", type: "date", scope: "detail" },
@@ -1287,7 +1321,7 @@ const FASHION_FORM_LAYOUT = [
   [{ key: "notes", width: 100 }],
 ];
 
-// 時裝：戰令時裝
+// 時裝：戰令
 const FASHION_PASS_FIELDS = [
   { key: "season", label: "賽季", type: "text", scope: "card" },
   { key: "cnDate", label: "陸服上線日期", type: "date", scope: "detail" },
@@ -1307,7 +1341,7 @@ const FASHION_PASS_FORM_LAYOUT = [
   [{ key: "notes", width: 100 }],
 ];
 
-// 時裝：綁玉專區
+// 時裝：綁玉
 const FASHION_BOUND_FIELDS = [
   { key: "price", label: "售價", type: "text", scope: "card", suffix: " 綁玉" },
   { key: "cnDate", label: "陸服上線日期", type: "date", scope: "detail" },
@@ -1330,7 +1364,7 @@ const FASHION_BOUND_FORM_LAYOUT = [
   [{ key: "notes", width: 100 }],
 ];
 
-// 時裝：免費時裝
+// 時裝：免費
 const FASHION_FREE_FIELDS = [
   { key: "source", label: "獲取", type: "tags", options: SOURCE, scope: "card" },
   { key: "collab", label: "聯動", type: "text", scope: "card" },
@@ -1527,14 +1561,14 @@ const PETS_FIELDS = [
   { key: "saleMode", label: "販售模式", type: "tags", options: SALE, scope: "card" },
   { key: "announcementUrl", label: "公告連結", type: "url", scope: "detail" },
   { key: "images", label: "預覽圖片", type: "images", scope: "card" },
-  { key: "class", label: "品級", type: "text", scope: "detail" },
+  { key: "rare", label: "品級", type: "select", options: RARE, scope: "detail" },
   { key: "twDate", label: "台服上線日期", type: "date", scope: "detail" },
   { key: "twVersion", label: "台服上線版本", type: "version", scope: "detail" },
   { key: "notes", label: "備註", type: "textarea", scope: "detail" },
 ];
 const PETS_FORM_LAYOUT = [
   [{ key: "name", width: 30 }, { key: "shiny", width: 30 }, { key: "pets", width: 40 }],
-  [{ key: "priceYU", width: 30 }, { key: "class", width: 30 }, { key: "saleMode", width: 40 }],
+  [{ key: "priceYU", width: 30 }, { key: "rare", width: 30 }, { key: "saleMode", width: 40 }],
   [{ key: "announcementUrl", width: 100 }],
   [{ key: "images", width: 100 }],
   [{ key: "cnVersion", width: 30 }, { key: "cnDate", width: 70 }],
@@ -1551,12 +1585,12 @@ const PETS_GACHA_FIELDS = [
   { key: "twVersion", label: "台服更新版本", type: "version", scope: "detail" },
   { key: "announcementUrl", label: "公告連結", type: "url", scope: "detail" },
   { key: "images", label: "預覽圖片", type: "images", scope: "card" },
-  { key: "class", label: "品級", type: "text", scope: "detail" },
+  { key: "rare", label: "品級", type: "select", options: RARE, scope: "detail" },
   { key: "notes", label: "備註", type: "textarea", scope: "detail" },
 ];
 const PETS_GACHA_FORM_LAYOUT = [
   [{ key: "name", width: 40 }, { key: "shiny", width: 60 }],
-  [{ key: "pets", width: 25 }, { key: "class", width: 25 }, { key: "gacha", width: 50 }], 
+  [{ key: "pets", width: 25 }, { key: "rare", width: 25 }, { key: "gacha", width: 50 }], 
   [{ key: "cnVersion", width: 25 }, { key: "twVersion", width: 25 }, { key: "announcementUrl", width: 50 }], 
   [{ key: "images", width: 100 }],
   [{ key: "notes", width: 100 }],
@@ -1570,13 +1604,13 @@ const PETS_EVENT_FIELDS = [
   { key: "twVersion", label: "台服更新版本", type: "version", scope: "detail" },
   { key: "announcementUrl", label: "公告連結", type: "url", scope: "detail" },
   { key: "images", label: "預覽圖片", type: "images", scope: "card" },
-  { key: "class", label: "品級", type: "text", scope: "detail" },
+  { key: "rare", label: "品級", type: "select", options: RARE, scope: "detail" },
   { key: "place", label: "活動地點", type: "text", scope: "detail" },
   { key: "notes", label: "備註", type: "textarea", scope: "detail" },
 ];
 const PETS_EVENT_FORM_LAYOUT = [
   [{ key: "name", width: 40 }, { key: "shiny", width: 60 }],
-  [{ key: "pets", width: 25 }, { key: "class", width: 25 }, {key: "place", width: 50 }], 
+  [{ key: "pets", width: 25 }, { key: "rare", width: 25 }, {key: "place", width: 50 }], 
   [{ key: "cnVersion", width: 25 }, { key: "twVersion", width: 25 }, { key: "announcementUrl", width: 50 }], 
   [{ key: "images", width: 100 }],
   [{ key: "notes", width: 100 }],
@@ -1698,7 +1732,7 @@ const MANOR_FORM_LAYOUT = [
 
 // 其他：神賜外觀
 const LUXURY_FIELDS = [
-  { key: "type", label: "類型", type: "text", scope: "detail" },
+  { key: "type", label: "類型", type: "select", options: LUX, scope: "detail" },
   { key: "cnDate", label: "陸服上線日期", type: "date", scope: "detail" },
   { key: "cnVersion", label: "陸服上線版本", type: "version", scope: "detail" },
   { key: "announcementUrl", label: "公告連結", type: "url", scope: "detail" },
@@ -2323,6 +2357,15 @@ function renderCards(list) {
 
     card.appendChild(carousel);
     card.appendChild(body);
+
+    const hasSpecialCursor =
+      item.priceTS != null && String(item.priceTS).trim() !== "" ||
+      item.hairstyle != null && String(item.hairstyle).trim() !== "";
+
+    if (hasSpecialCursor) {
+      card.classList.add("has-special-cursor");
+    }
+
     card.addEventListener("click", () => openDetail(cat, item));
     cardGrid.appendChild(card);
   });
