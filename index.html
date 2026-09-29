@@ -2116,7 +2116,11 @@ function subscribeItems(categoryId) {
     snap.forEach((d) => list.push({ id: d.id, ...d.data() }));
     list.sort((a, b) => {
       // 無日期則依陸服上線版本降序排序
-      if (categoryId === "pet-gacha","other-dye") {
+      if (categoryId === "pet-gacha" ||
+          categoryId === "pet-event" ||
+          categoryId === "pet-catch" ||
+          categoryId === "other-dye"
+        ) {
         return (b.cnVersion || "").localeCompare(a.cnVersion || "", undefined, { numeric: true });
       }
       const dateDiff = (b.cnDate || "").localeCompare(a.cnDate || "");
