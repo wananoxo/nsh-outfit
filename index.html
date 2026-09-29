@@ -1294,7 +1294,7 @@ const CYTYPE = ["劍", "弓", "雙刀"];
 const LUX = ["時裝", "祥瑞", "莊園組件", "俠棋"];
 const SOURCE = ["副本掉落", "榮譽挑戰", "劇情任務", "簽到活動", "江湖門派", "身分玩法", "俠緣好感", "羈絆風物", "探索季藏", "珍玩收藏", "其他", "聯動"];
 const PRIZE = ["髮型", "環身", "腳印", "武器", "祥瑞", "坐騎", "技能", "靈寵", "站姿"];
-const PETS = ["狗", "貓", "企鵝", "兔子", "鹿", "狐狸", "鳳凰", "鷹", "萌萌泥", "兔型福寶", "貓型福寶", "虎型福寶", "羊型福寶", "皮皮鼠", "絨絨", "異世", "逆崽", "八爪魚", "松鼠"];
+const PETS = ["狗", "貓", "企鵝", "兔子", "鹿", "狐狸", "鳳凰", "鷹", "兔型福寶", "貓型福寶", "絨絨", "虎型福寶", "羊型福寶", "松鼠", "犬型福寶", "萌萌泥", "皮皮鼠", "逆崽", "八爪魚", "異世"];
 const PETS_GACHA = ["常駐", "限時", "樂樂扭蛋機", "搖搖扭蛋機", "星夢扭蛋機", "盈運扭蛋機"];
 const RARE = ["典藏‧珍", "典藏", "卓越", "高級", "普通"];
 
@@ -1605,11 +1605,32 @@ const PETS_EVENT_FIELDS = [
   { key: "announcementUrl", label: "公告連結", type: "url", scope: "detail" },
   { key: "images", label: "預覽圖片", type: "images", scope: "card" },
   { key: "rare", label: "品級", type: "select", options: RARE, scope: "detail" },
-  { key: "place", label: "活動地點", type: "text", scope: "detail" },
+  { key: "place", label: "地點", type: "text", scope: "detail" },
   { key: "notes", label: "備註", type: "textarea", scope: "detail" },
 ];
 const PETS_EVENT_FORM_LAYOUT = [
   [{ key: "name", width: 40 }, { key: "shiny", width: 60 }],
+  [{ key: "pets", width: 25 }, { key: "rare", width: 25 }, {key: "place", width: 50 }], 
+  [{ key: "cnVersion", width: 25 }, { key: "twVersion", width: 25 }, { key: "announcementUrl", width: 50 }], 
+  [{ key: "images", width: 100 }],
+  [{ key: "notes", width: 100 }],
+];
+
+// 寵物：野外
+const PETS_CATCH_FIELDS = [
+  { key: "pets", label: "種類", type: "tags", options: PETS, scope: "card" },
+  { key: "rare", label: "品級", type: "select", options: RARE, scope: "detail" },
+  { key: "shiny", label: "偏色", type: "text", scope: "card" },
+  { key: "freshen", label: "煥色", type: "text", scope: "card" },
+  { key: "cnVersion", label: "陸服更新版本", type: "version", scope: "detail" },
+  { key: "twVersion", label: "台服更新版本", type: "version", scope: "detail" },
+  { key: "announcementUrl", label: "公告連結", type: "url", scope: "detail" },
+  { key: "images", label: "預覽圖片", type: "images", scope: "card" },
+  { key: "place", label: "捕捉地圖", type: "text", scope: "detail" },
+  { key: "notes", label: "備註", type: "textarea", scope: "detail" },
+];
+const PETS_CATCH_FORM_LAYOUT = [
+  [{ key: "name", width: 30 }, { key: "shiny", width: 35 }, { key: "freshen", width: 35 }],
   [{ key: "pets", width: 25 }, { key: "rare", width: 25 }, {key: "place", width: 50 }], 
   [{ key: "cnVersion", width: 25 }, { key: "twVersion", width: 25 }, { key: "announcementUrl", width: 50 }], 
   [{ key: "images", width: 100 }],
@@ -1751,6 +1772,45 @@ const LUXURY_FORM_LAYOUT = [
   [{ key: "notes", width: 100 }],
 ];
 
+// 其他：登入介面
+const LOGIN_FIELDS = [
+  { key: "priceYU", label: "售價", type: "text", scope: "card", suffix: " 紋玉" },
+  { key: "priceTS", label: "售價", type: "text", scope: "card", suffix: " 天賞" },
+  { key: "cnDate", label: "陸服上線日期", type: "date", scope: "detail" },
+  { key: "cnVersion", label: "陸服上線版本", type: "version", scope: "detail" },
+  { key: "saleMode", label: "販售模式", type: "tags", options: SALE, scope: "card" },
+  { key: "announcementUrl", label: "公告連結", type: "url", scope: "detail" },
+  { key: "images", label: "預覽圖片", type: "images", scope: "card" },
+  { key: "gift", label: "贈禮", type: "text", scope: "detail" },
+  { key: "twDate", label: "台服上線日期", type: "date", scope: "detail" },
+  { key: "twVersion", label: "台服上線版本", type: "version", scope: "detail" },
+  { key: "notes", label: "備註", type: "textarea", scope: "detail" },
+];
+const LOGIN_FORM_LAYOUT = [
+  [{ key: "name", width: 50 }, { key: "gift", width: 50 }],
+  [{ key: "priceYU", width: 30 }, { key: "priceTS", width: 30 }, { key: "saleMode", width: 40 }],
+  [{ key: "announcementUrl", width: 100 }],
+  [{ key: "images", width: 100 }],
+  [{ key: "cnVersion", width: 30 }, { key: "cnDate", width: 70 }],
+  [{ key: "twVersion", width: 30 }, { key: "twDate", width: 70 }],
+  [{ key: "notes", width: 100 }],
+];
+
+// 其他：國色獎勵
+const DYE_FIELDS = [
+  { key: "cnVersion", label: "陸服上線版本", type: "version", scope: "detail" },
+  { key: "twVersion", label: "台服上線版本", type: "version", scope: "detail" },
+  { key: "announcementUrl", label: "公告連結", type: "url", scope: "detail" },
+  { key: "images", label: "預覽圖片", type: "images", scope: "card" },
+  { key: "notes", label: "備註", type: "textarea", scope: "detail" },
+];
+const DYE_FORM_LAYOUT = [
+  [{ key: "name", width: 40 }, { key: "cnVersion", width: 30 }, { key: "twVersion", width: 30 }],
+  [{ key: "announcementUrl", width: 100 }],
+  [{ key: "images", width: 100 }],
+  [{ key: "notes", width: 100 }],
+];
+
 // 通用格式
 const GENERIC_FIELDS = [
   { key: "price", label: "售價", type: "text", scope: "card", suffix: " 紋玉" },
@@ -1767,6 +1827,27 @@ const GENERIC_FORM_LAYOUT = [
   [{ key: "name", width: 100 }],
   [{ key: "price", width: 30 }, { key: "saleMode", width: 70 }],
   [{ key: "announcementUrl", width: 100 }],
+  [{ key: "images", width: 100 }],
+  [{ key: "cnVersion", width: 30 }, { key: "cnDate", width: 70 }],
+  [{ key: "twVersion", width: 30 }, { key: "twDate", width: 70 }],
+  [{ key: "notes", width: 100 }],
+];
+
+// 通用格式：免費外觀
+const FREE_FIELDS = [
+  { key: "source", label: "獲取", type: "tags", options: SOURCE, scope: "card" },
+  { key: "collab", label: "聯動", type: "text", scope: "card" },
+  { key: "cnDate", label: "陸服上線日期", type: "date", scope: "detail" },
+  { key: "cnVersion", label: "陸服上線版本", type: "version", scope: "detail" },
+  { key: "announcementUrl", label: "公告連結", type: "url", scope: "detail" },
+  { key: "images", label: "預覽圖片", type: "images", scope: "card" },
+  { key: "twDate", label: "台服上線日期", type: "date", scope: "detail" },
+  { key: "twVersion", label: "台服上線版本", type: "version", scope: "detail" },
+  { key: "notes", label: "備註", type: "textarea", scope: "detail" },
+];
+const FREE_FORM_LAYOUT = [
+  [{ key: "name", width: 50 }, {key: "collab", width: 50}],
+  [{ key: "source", width: 30 }, { key: "announcementUrl", width: 70 }],
   [{ key: "images", width: 100 }],
   [{ key: "cnVersion", width: 30 }, { key: "cnDate", width: 70 }],
   [{ key: "twVersion", width: 30 }, { key: "twDate", width: 70 }],
@@ -1824,6 +1905,8 @@ const CATEGORIES = [
       { id: "pet-direct", label: "商城直售", fields: PETS_FIELDS, formLayout: PETS_FORM_LAYOUT },
       { id: "pet-gacha", label: "扭蛋獎池", fields: PETS_GACHA_FIELDS, formLayout: PETS_GACHA_FORM_LAYOUT },
       { id: "pet-rare", label: "珍萌大會", fields: PETS_EVENT_FIELDS, formLayout: PETS_EVENT_FORM_LAYOUT },
+      { id: "pet-catch", label: "野外捕捉", fields: PETS_CATCH_FIELDS, formLayout: PETS_CATCH_FORM_LAYOUT },
+      { id: "pet-free", label: "免費獲取", fields: FREE_FIELDS, formLayout: FREE_FORM_LAYOUT },
     ],
   },
   {
@@ -1840,6 +1923,8 @@ const CATEGORIES = [
     children: [
       { id: "other-manor", label: "莊園組件", fields: MANOR_FIELDS, formLayout: MANOR_FORM_LAYOUT },
       { id: "other-bond", label: "俠緣外觀", fields: GENERIC_FIELDS, formLayout: GENERIC_FORM_LAYOUT },
+      { id: "other-login", label: "登入介面", fields: LOGIN_FIELDS, formLayout: LOGIN_FORM_LAYOUT },
+      { id: "other-dye", label: "國色獎勵", fields: DYE_FIELDS, formLayout: DYE_FORM_LAYOUT },
       { id: "other-luxury", label: "神賜外觀", fields: LUXURY_FIELDS, formLayout: LUXURY_FORM_LAYOUT },
     ],
   },
@@ -2030,8 +2115,8 @@ function subscribeItems(categoryId) {
     const list = [];
     snap.forEach((d) => list.push({ id: d.id, ...d.data() }));
     list.sort((a, b) => {
-      // 寵物專屬版面：扭蛋獎池依「陸服上線版本」降序排序
-      if (categoryId === "pet-gacha") {
+      // 無日期則依陸服上線版本降序排序
+      if (categoryId === "pet-gacha","other-dye") {
         return (b.cnVersion || "").localeCompare(a.cnVersion || "", undefined, { numeric: true });
       }
       const dateDiff = (b.cnDate || "").localeCompare(a.cnDate || "");
